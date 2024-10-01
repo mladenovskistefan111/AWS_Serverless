@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout code
@@ -32,8 +34,8 @@ jobs:
         id: tag_version
         uses: anothrNick/github-tag-action@v1
         with:
-          tag_prefix: "version"
-          default_bump: "patch"
+          entryPoint: "version"
+          args: "patch"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
