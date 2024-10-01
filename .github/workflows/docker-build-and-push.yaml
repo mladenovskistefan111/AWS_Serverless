@@ -32,7 +32,7 @@ jobs:
         id: tag_version
         uses: anothrNick/github-tag-action@v1
         with:
-          tag_prefix: "v"
+          tag_prefix: "version"
           default_bump: "patch"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
