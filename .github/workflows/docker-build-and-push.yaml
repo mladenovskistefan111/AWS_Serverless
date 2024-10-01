@@ -23,8 +23,6 @@ jobs:
   docker-build-and-push:
     runs-on: ubuntu-latest
     needs: run-lint
-    env:
-      IMAGE_NAME: mladenovskistefan/dotnet-todo
     steps:
 
       - name: Checkout code
@@ -46,20 +44,18 @@ jobs:
         run: |
           set -e
           IMAGE_VERSION="${GITHUB_REF_NAME}"
-          docker build -t "$IMAGE_NAME:${IMAGE_VERSION}" .
+          docker build -t mladenovskistefan/dotnet-todo:"${IMAGE_VERSION}" .
 
-      - name: Debug IMAGE_NAME
-        run: echo IMAGE_NAME is:"$IMAGE_NAME"
 
       - name: Tag image as latest
         run: |
           set -e
           sleep 30
-          docker tag "$IMAGE_NAME:${IMAGE_VERSION}" "$IMAGE_NAME:latest"
+          docker tag mladenovskistefan/dotnet-todo:"${IMAGE_VERSION}" mladenovskistefan/dotnet-todo:latest
 
       - name: Push Docker image
         run: |
           set -e
           IMAGE_VERSION="${GITHUB_REF_NAME}"
-          docker push "$IMAGE_NAME:${IMAGE_VERSION}"
-          docker push "$IMAGE_NAME:latest"
+          docker push mladenovskistefan/dotnet-todo:"${IMAGE_VERSION}"
+          docker push mladenovskistefan/dotnet-todo:latest
