@@ -40,11 +40,11 @@ jobs:
       - name: Build Docker image with Semantic Versioning
         run: |
           set -e
-          IMAGE_VERSION=${GITHUB_REF_NAME}
-          docker build -t $IMAGE_NAME:${IMAGE_VERSION} .
+          IMAGE_VERSION="${GITHUB_REF_NAME}"
+          docker build -t "$IMAGE_NAME:${IMAGE_VERSION}" .
 
       - name: Push Docker image
         run: |
           set -e
-          IMAGE_VERSION=${GITHUB_REF_NAME}
-          docker push $IMAGE_NAME:${IMAGE_VERSION}
+          IMAGE_VERSION="${GITHUB_REF_NAME}"
+          docker push "$IMAGE_NAME:${IMAGE_VERSION}"
