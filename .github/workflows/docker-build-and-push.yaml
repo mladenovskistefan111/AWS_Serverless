@@ -51,7 +51,8 @@ jobs:
       - name: Tag image as latest
         run: |
           set -e
-          docker tag "$IMAGE_NAME:${IMAGE_VERSION}" "$IMAGE_NAME":latest
+          sleep 30
+          docker tag "$IMAGE_NAME:${IMAGE_VERSION}" "$IMAGE_NAME:latest"
 
       - name: Push Docker image
         run: |
