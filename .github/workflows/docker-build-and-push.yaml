@@ -1,0 +1,51 @@
+name: CI Pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Super-Linter
+        uses: github/super-linter@v5
+        env:
+          VALIDATE_ALL_CODEBASE: true
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Bump and tag version
+        id: tag_version
+        uses: anothrNick/github-tag-action@v1.37.0
+        with:
+          tag_prefix: "v"
+          default_bump: "patch"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker image with Semantic Versioning
+        id: docker_build
+        run: |
+          IMAGE_VERSION=${{ steps.tag_version.outputs.new_tag }}
+          docker build -t mladenovskistefan/dotnet-todo:${IMAGE_VERSION} .
+
+      - name: Push Docker image
+        run: |
+          IMAGE_VERSION=${{ steps.tag_version.outputs.new_tag }}
+          docker push mladenovskistefan/dotnet-todo:${IMAGE_VERSION}
+
+      - name: Output the new version
+        run: echo "New version is ${{ steps.tag_version.outputs.new_tag }}"
