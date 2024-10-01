@@ -34,7 +34,6 @@ jobs:
         id: tag_version
         uses: anothrNick/github-tag-action@v1
         with:
-          entryPoint: "version"
           args: "patch"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
