@@ -44,14 +44,14 @@ jobs:
 
       - name: Check if tag exists
         id: check_tag
-        run: |
+        run:
           if git rev-parse "refs/tags/${{ env.new_tag }}" >/dev/null 2>&1; then
             echo "Tag ${{ env.new_tag }} already exists. Exiting..."
             exit 1
           fi
 
       - name: Create and push new tag
-        run: |
+        run:
           git tag ${{ env.new_tag }}
           git push origin ${{ env.new_tag }}
         env:
@@ -59,12 +59,12 @@ jobs:
 
       - name: Build Docker image with Semantic Versioning
         id: docker_build
-        run: |
+        run:
           IMAGE_VERSION=${{ env.new_tag }}
           docker build -t mladenovskistefan/dotnet-todo:${IMAGE_VERSION} .
 
       - name: Push Docker image
-        run: |
+        run:
           IMAGE_VERSION=${{ env.new_tag }}
           docker push mladenovskistefan/dotnet-todo:${IMAGE_VERSION}
 
