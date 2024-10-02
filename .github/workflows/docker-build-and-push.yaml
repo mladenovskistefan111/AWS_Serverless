@@ -17,9 +17,10 @@ jobs:
         uses: github/super-linter@v5
         env:
           VALIDATE_ALL_CODEBASE: true
-          EXCLUDE_PATHS: "helm/*"
           DEFAULT_BRANCH: "main"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILTER_REGEX_INCLUDE: "^src/"
+          FILTER_REGEX_EXCLUDE: "^(?!src/)" 
 
   docker-build-and-push:
     runs-on: ubuntu-latest
