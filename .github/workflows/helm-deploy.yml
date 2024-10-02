@@ -38,7 +38,7 @@ jobs:
 
       - name: Sleep for 120 seconds to allow deployment to settle
         run: |
-          sleep 30
+          sleep 120
 
       - name: Check Deployment Status
         run: |
