@@ -1,0 +1,13 @@
+---
+namespace: dotnet-todo
+
+image:
+  repository: mladenovskistefan/dotnet-todo
+  tag: v1.0.1
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
