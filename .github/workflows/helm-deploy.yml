@@ -1,0 +1,37 @@
+---
+name: helm-deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Minikube
+        uses: manusa/actions-setup-minikube@v2.5.0
+        with:
+          minikube version: 'v1.34.0'
+          kubernetes version: 'v1.31.1'
+          driver: docker
+
+      - name: Install Helm
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+      - name: Create Kubernetes namespace
+        run: |
+          kubectl create namespace dotnet-todo-namespace || echo "Namespace 'dotnet-todo-namespace' already exists"
+
+      - name: Set Image Version
+        run: echo "IMAGE_VERSION=${GITHUB_REF_NAME}" >> $GITHUB_ENV
+      
+      - name: Deploy backend to Minikube
+        run: |
+          helm install dotnet-app ./helm \
+            --namespace dotnet-todo-namespace \
+            --set image.tag=${{ env.IMAGE_VERSION }}
