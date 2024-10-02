@@ -36,7 +36,7 @@ jobs:
             --namespace dotnet-todo-namespace \
             --set image.tag=${{ env.IMAGE_VERSION }}
 
-      - name: Sleep for 30 seconds to allow deployment to settle
+      - name: Sleep for 120 seconds to allow deployment to settle
         run: |
           sleep 30
 
