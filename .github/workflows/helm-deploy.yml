@@ -49,7 +49,7 @@ jobs:
 
       - name: Port-forward service to localhost
         run: |
-          kubectl port-forward service/dotnet-app-service 80:80 -n dotnet-todo-namespace
+          kubectl port-forward service/dotnet-app-service 8080:80 -n dotnet-todo-namespace
 
       - name: Wait for port-forwarding to settle
         run: |
@@ -57,22 +57,22 @@ jobs:
 
       - name: Post sample todo items
         run: |
-          curl -X POST http://localhost:80/todoitems -H "Content-Type: application/json" -d '{"id": 1, "name": "walk", "isComplete": false}'
-          curl -X POST http://localhost:80/todoitems -H "Content-Type: application/json" -d '{"id": 2, "name": "study", "isComplete": true}'
-          curl -X POST http://localhost:80/todoitems -H "Content-Type: application/json" -d '{"id": 3, "name": "work on task", "isComplete": true}'
+          curl -X POST http://localhost:8080/todoitems -H "Content-Type: application/json" -d '{"id": 1, "name": "walk", "isComplete": false}'
+          curl -X POST http://localhost:8080/todoitems -H "Content-Type: application/json" -d '{"id": 2, "name": "study", "isComplete": true}'
+          curl -X POST http://localhost:8080/todoitems -H "Content-Type: application/json" -d '{"id": 3, "name": "work on task", "isComplete": true}'
 
       - name: Get all todo items
         run: |
-          curl http://localhost:80/todoitems
+          curl http://localhost:8080/todoitems
 
       - name: Get todo item with id 1
         run: |
-          curl http://localhost:80/todoitems/1
+          curl http://localhost:8080/todoitems/1
 
       - name: Get todo item with id 2
         run: |
-          curl http://localhost:80/todoitems/2
+          curl http://localhost:8080/todoitems/2
 
       - name: Get todo item with id 3
         run: |
-          curl http://localhost:80/todoitems/
+          curl http://localhost:8080/todoitems/
