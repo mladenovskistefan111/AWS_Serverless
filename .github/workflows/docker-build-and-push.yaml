@@ -19,6 +19,8 @@ jobs:
           VALIDATE_ALL_CODEBASE: true
           DEFAULT_BRANCH: "main"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:  
+          config-file-path: .super-linter.yaml
 
   docker-build-and-push:
     runs-on: ubuntu-latest
