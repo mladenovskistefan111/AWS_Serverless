@@ -3,7 +3,7 @@ namespace: dotnet-todo-namespace
 
 image:
   repository: mladenovskistefan/dotnet-todo
-  tag: {{ .Values.image.tag | default "v1.0.1" }}
+  tag: "v1.0.1"
 
 replicaCount: 1
 
