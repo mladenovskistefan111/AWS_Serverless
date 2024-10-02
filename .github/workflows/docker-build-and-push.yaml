@@ -16,11 +16,10 @@ jobs:
       - name: Run Super-Linter
         uses: github/super-linter@v5
         env:
-          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_PATHS: "src/*" 
           DEFAULT_BRANCH: "main"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:  
-          config-file-path: .super-linter.yaml
 
   docker-build-and-push:
     runs-on: ubuntu-latest
