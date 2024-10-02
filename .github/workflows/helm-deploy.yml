@@ -26,15 +26,10 @@ jobs:
       - name: Create Kubernetes namespace
         run: |
           kubectl create namespace dotnet-todo-namespace || echo "Namespace 'dotnet-todo-namespace' already exists"
-
-      - name: Set Image Version
-        run: echo "IMAGE_VERSION=${GITHUB_REF_NAME}" >> $GITHUB_ENV
       
       - name: Deploy dotnet-app to Minikube
         run: |
-          helm install dotnet-app ./helm \
-            --namespace dotnet-todo-namespace \
-            --set image.tag=${{ env.IMAGE_VERSION }}
+          helm install dotnet-app ./helm --namespace dotnet-todo-namespace
 
       - name: Sleep for 120 seconds to allow deployment to settle
         run: |
