@@ -75,4 +75,4 @@ jobs:
 
       - name: Get todo item with id 3
         run: |
-          curl http://localhost:8080/todoitems/
+          curl http://localhost:8080/todoitems/3
