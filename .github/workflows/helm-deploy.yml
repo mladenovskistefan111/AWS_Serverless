@@ -46,3 +46,33 @@ jobs:
       - name: Check Pods Status
         run: |
           kubectl get pods -n dotnet-todo-namespace
+
+      - name: Port-forward service to localhost
+        run: |
+          kubectl port-forward service/dotnet-app-service 80:80 -n dotnet-todo-namespace
+
+      - name: Wait for port-forwarding to settle
+        run: |
+          sleep 10
+
+      - name: Post sample todo items
+        run: |
+          curl -X POST http://localhost:80/todoitems -H "Content-Type: application/json" -d '{"id": 1, "name": "walk", "isComplete": false}'
+          curl -X POST http://localhost:80/todoitems -H "Content-Type: application/json" -d '{"id": 2, "name": "study", "isComplete": true}'
+          curl -X POST http://localhost:80/todoitems -H "Content-Type: application/json" -d '{"id": 3, "name": "work on task", "isComplete": true}'
+
+      - name: Get all todo items
+        run: |
+          curl http://localhost:80/todoitems
+
+      - name: Get todo item with id 1
+        run: |
+          curl http://localhost:80/todoitems/1
+
+      - name: Get todo item with id 2
+        run: |
+          curl http://localhost:80/todoitems/2
+
+      - name: Get todo item with id 3
+        run: |
+          curl http://localhost:80/todoitems/
