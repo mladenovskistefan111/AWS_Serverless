@@ -35,3 +35,19 @@ jobs:
           helm install dotnet-app ./helm \
             --namespace dotnet-todo-namespace \
             --set image.tag=${{ env.IMAGE_VERSION }}
+
+      - name: Sleep for 30 seconds to allow deployment to settle
+        run: |
+          sleep 30
+
+      - name: Check Deployment Status
+        run: |
+          kubectl get deployment -n dotnet-todo-namespace
+          
+      - name: Check Service Status
+        run: |
+          kubectl get service -n dotnet-todo-namespace
+          
+      - name: Check Pods Status
+        run: |
+          kubectl get pods -n dotnet-todo-namespace
