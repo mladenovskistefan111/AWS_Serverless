@@ -49,7 +49,7 @@ jobs:
 
       - name: Port-forward service to localhost
         run: |
-          kubectl port-forward service/dotnet-app-service 8080:80 -n dotnet-todo-namespace
+          kubectl port-forward service/dotnet-app-service 8080:80 -n dotnet-todo-namespace &
 
       - name: Wait for port-forwarding to settle
         run: |
