@@ -1,5 +1,5 @@
 ---
-namespace: dotnet-todo
+namespace: dotnet-todo-namespace
 
 image:
   repository: mladenovskistefan/dotnet-todo
