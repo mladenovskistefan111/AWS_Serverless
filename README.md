@@ -26,4 +26,3 @@ This process ensures that the application is easily deployed and accessible for 
 
 I created an infrastructure-as-code solution using Terraform to host the built application on AWS Lambda, running inside a VPC. The solution is designed to expose the application to the internet through an API Gateway, allowing external access.
 
-While I understand the concepts of AWS Lambda and serverless architecture, I lack hands-on experience with them. Despite developing the Terraform code for deployment, I have not yet succeeded in making the application fully operational on Lambda. I will continue to research and experiment with AWS Lambda to find a solution.
